@@ -4,16 +4,16 @@ namespace Coronachan
 {
     class Region
     {
-        string name;
-        int full_pop;
-        int time;
-        int time_since;
-        public Region(string title, int full, int inf, int time_total, int inf_time)
+        string name;//string nama obyek Region
+        int full_pop;//populasi total (konstan)
+        int time_first;//waktu pertama kali infeksi
+        int time_since;//waktu sejak infeksi
+        public Region(string title, int full, int inf, int inf_time, int time_after)
         {
-            name = title;
-            full_pop = full;
-            time = time_total;
-            time_since = inf_time;
+            name = title; 
+            full_pop = full; 
+            time_first = inf_time;
+            time_since = time_after;
         }
         public Region(string title)
         {
@@ -29,6 +29,10 @@ namespace Coronachan
         public int getPop()
         {
             return full_pop;
+        }
+        public void getTime(int t)
+        {
+            time = 
         }
         public int infPop()
         {
