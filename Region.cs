@@ -7,20 +7,17 @@ namespace Coronachan
         string name;//string nama obyek Region
         int full_pop;//populasi total (konstan)
         int time_first;//waktu pertama kali infeksi
-        int time_since;//waktu sejak infeksi
-        public Region(string title, int full, int inf, int inf_time, int time_after)
+        public Region(string title, int full, int inf_time)
         {
             name = title; 
             full_pop = full; 
             time_first = inf_time;
-            time_since = time_after;
         }
         public Region(string title)
         {
             name = title;
             full_pop = 0;
-            time = 0;
-            time_since = 0;
+            time_first = 0;
         }
         public void setPop(int pop)
         {
@@ -30,9 +27,17 @@ namespace Coronachan
         {
             return full_pop;
         }
-        public void getTime(int t)
+        public void setTime(int t)
         {
-            time = 
+            time_first = t;
+        }
+        public int getTime()
+        {
+            return time_first;
+        }
+        public int getTimeInf(int t)
+        {
+            return t - time_first;
         }
         public int infPop()
         {
@@ -43,6 +48,5 @@ namespace Coronachan
         {
             return (infPop() * trip) > 1;
         }
-
     }
 }
