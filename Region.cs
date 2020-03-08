@@ -39,14 +39,15 @@ namespace Coronachan
         {
             return t - time_first;
         }
-        public int infPop()
+        public int infPop(int t)
         {
-            double result = full_pop / (1 + (Math.Exp(time_since * -0.25) * (full_pop - 1)));
+            int timeInf = getTimeInf(t);
+            double result = full_pop / (1 + (Math.Exp(timeInf * -0.25) * (full_pop - 1)));
             return (int)result;
         }
-        public bool spread(int trip, Region B)
+        public bool spread(int trip, int infPop, Region B)
         {
-            return (infPop() * trip) > 1;
+            return (infPop * trip) > 1;
         }
     }
 }
