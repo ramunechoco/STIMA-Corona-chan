@@ -43,7 +43,7 @@ namespace bfs{
 
             while(!queue.IsEmpty()){
                 int v = queue.Dequeue();
-                for(Tonari k = adjlist[v].adjlist; k !== null; k = k.next){
+                for(Tonari k = adjlist[v].adjlist; k != null; k = k.next){
                     int vnum = k.vertexNum;
 
                     if(!visited[vnum]){
