@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Ling;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,6 +11,14 @@ namespace bfs{
         Vertex(String name,Tonari adjlist){
             this.name = name;
             this.adjlist = adjlist;
+        }
+        public string GetName()
+        {
+            return name;
+        }
+        public Tonari GetAdjlist()
+        {
+            return adjlist;
         }
     }
 
@@ -27,9 +35,9 @@ namespace bfs{
         Vertex[] adjlist;
 
         public void bfs(){
-            Queue<Int32> queue = new Queue<Int>();
-            bool[] visited = new bool[adjlist.length];
-            for (int v = 0; v < visited.length; v++){
+            Queue<Int32> queue = new Queue<int>();
+            bool[] visited = new bool[adjlist.Length];
+            for (int v = 0; v < visited.Length; v++){
                 if(!visited[v]){
                     bfs(v,visited,queue);
                 }
@@ -38,16 +46,16 @@ namespace bfs{
 
         private void bfs(int start,bool[] visited,Queue<Int32> queue){
             visited[start] = true;
-            Console.Writeln("Visiting " + adjlist[start].name);
+            Console.WriteLine("Visiting " + adjlist[start].GetName());
             queue.Enqueue(start);
 
-            while(!queue.IsEmpty()){
+            while(queue.Count != 0){
                 int v = queue.Dequeue();
-                for(Tonari k = adjlist[v].adjlist; k != null; k = k.next){
+                for(Tonari k = adjlist[v].GetAdjlist(); k != null; k = k.next){
                     int vnum = k.vertexNum;
 
                     if(!visited[vnum]){
-                        Console.Writeln("Visiting " + adjlist[vnum].name);
+                        Console.WriteLine("Visiting " + adjlist[vnum].GetName());
                         visited[vnum] = true;
                         queue.Enqueue(vnum);
                     }
