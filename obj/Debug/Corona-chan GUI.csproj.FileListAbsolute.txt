@@ -1,3 +1,8 @@
 C:\Users\Faris\STIMA-Corona-chan\obj\Debug\Corona-chan GUI.csprojAssemblyReference.cache
 C:\Users\Faris\STIMA-Corona-chan\obj\Debug\Corona_chan_GUI.Properties.Resources.resources
 C:\Users\Faris\STIMA-Corona-chan\obj\Debug\Corona-chan GUI.csproj.GenerateResource.cache
+C:\Users\Faris\STIMA-Corona-chan\bin\Debug\Corona-chan GUI.exe.config
+C:\Users\Faris\STIMA-Corona-chan\bin\Debug\Corona-chan GUI.exe
+C:\Users\Faris\STIMA-Corona-chan\bin\Debug\Corona-chan GUI.pdb
+C:\Users\Faris\STIMA-Corona-chan\obj\Debug\Corona-chan GUI.exe
+C:\Users\Faris\STIMA-Corona-chan\obj\Debug\Corona-chan GUI.pdb

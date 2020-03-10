@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Ling;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Region;
+using Coronachan;
 
 namespace bfs{
     class Vertex{
@@ -26,6 +26,11 @@ namespace bfs{
             this.time_f = 0;
         }
 
+        public string get_name()
+        {
+            return this.name;
+        }
+
         public int time_if(int t){
             return t - this.time_f;
         }
@@ -45,6 +50,11 @@ namespace bfs{
         public int get_population(){
             return this.population;
         }
+
+        public Tonari get_adjlist()
+        {
+            return this.adjlist;
+        }
     }
 
     class Tonari{
@@ -52,24 +62,24 @@ namespace bfs{
         public Tonari next;
         
         public Tonari(int vnum,Tonari k){
-            this.transission = vnum;
+            this.transmission = vnum;
             next = k;
         }
 
         public double infectedPeople(Vertex cityA){//-->I(P(A),T(A))
-            double time1 = (double) cityA.time_f;
-            double infected = cityA.population * time1 / 20;
+            double time1 = (double) cityA.get_time_f();
+            double infected = cityA.get_population() * time1 / 20;
             return infected;
         }
 
         public double infectedF(Vertex cityA){
-            double time1 = (double) cityA.time_f;
+            double time1 = (double) cityA.get_time_f();
             
             double upperlevel;
             double lowerlevel;
 
-                upperlevel = cityA.population;
-                lowerlevel = 1 + (cityA.population - 1) * Math.Exp(time1 * (-1) / 4);
+                upperlevel = cityA.get_population();
+                lowerlevel = 1 + (cityA.get_population() - 1) * Math.Exp(time1 * (-1) / 4);
 
                 double infectedF = upperlevel/lowerlevel;
 
@@ -78,7 +88,7 @@ namespace bfs{
 
         public bool transferRate(Vertex cityA){//S(A,B)
             bool infected = false;
-            double transferRate = cityA.adjlist.transission * infectedPeople(cityA);
+            double transferRate = cityA.get_adjlist().transmission * infectedPeople(cityA);
 
             if(transferRate < 1){
                 infected = true;
@@ -94,9 +104,9 @@ namespace bfs{
         Vertex[] adjlist;
 
         public void bfs(){
-            Queue<Int32> queue = new Queue<Int>();
-            bool[] visited = new bool[adjlist.length];
-            for (int v = 0; v < visited.length; v++){
+            Queue<Int32> queue = new Queue<int>();
+            bool[] visited = new bool[adjlist.Length];
+            for (int v = 0; v < visited.Length; v++){
                 if(!visited[v]){
                     bfs(v,visited,queue);
                 }
@@ -105,16 +115,16 @@ namespace bfs{
 
         private void bfs(int start,bool[] visited,Queue<Int32> queue){
             visited[start] = true;
-            Console.Writeln("Visiting " + adjlist[start].name);
+            Console.WriteLine("Visiting " + adjlist[start].get_name());
             queue.Enqueue(start);
 
-            while(!queue.IsEmpty()){
+            while(queue.Count != 0){
                 int v = queue.Dequeue();
-                for(Tonari k = adjlist[v].adjlist; k != null; k = k.next){
-                    int vnum = k.transmission;
+                for(Tonari k = adjlist[v].get_adjlist(); k != null; k = k.next){
+                    int vnum = (int) k.transmission;
 
-                    if(!visited[vnum] && transferRate(adjlist)){
-                        Console.Writeln("Visiting " + adjlist[vnum].name);
+                    if(!visited[vnum] && transferRate(adjlist[v])){ //ini benerin yak gw gangerti kodenya
+                        Console.WriteLine("Visiting " + adjlist[vnum].get_name());
                         visited[vnum] = true;
                         queue.Enqueue(vnum);
                     }
