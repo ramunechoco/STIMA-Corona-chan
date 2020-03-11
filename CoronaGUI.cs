@@ -8,6 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Imaging;
+using Microsoft.Msagl.Core.Geometry.Curves;
+using Microsoft.Msagl.Core.Routing;
+using Microsoft.Msagl.Drawing;
+using Microsoft.Msagl.GraphViewerGdi;
+using Microsoft.Msagl.Layout.Layered;
+using Microsoft.Msagl.Layout.MDS;
+using Color = Microsoft.Msagl.Drawing.Color;
+using Label = Microsoft.Msagl.Drawing.Label;
+using MouseButtons = System.Windows.Forms.MouseButtons;
 
 namespace Corona_chan_GUI
 {
@@ -16,6 +25,8 @@ namespace Corona_chan_GUI
         public CoronaGUIForm()
         {
             InitializeComponent();
+            Microsoft.Msagl.GraphViewerGdi.GViewer gViewer = new Microsoft.Msagl.GraphViewerGdi.GViewer();
+            gViewer.AsyncLayout = true;
         }
 
         private void uploadmap_Click(object sender, EventArgs e)
@@ -74,28 +85,22 @@ namespace Corona_chan_GUI
         private void textBoxMap_TextChanged(object sender, EventArgs e)
         {
 
+
         }
 
-        private void CoronaImage_Click(object sender, EventArgs e)
+        private void Calculator_Click(object sender, EventArgs e)
         {
-            Microsoft.Msagl.Drawing.Graph graph = new
-Microsoft.Msagl.Drawing.Graph("");
-            graph.AddEdge("A", "B");
-            graph.AddEdge("A", "B");
-            graph.FindNode("A").Attr.FillColor =
-            Microsoft.Msagl.Drawing.Color.Red;
-            graph.FindNode("B").Attr.FillColor =
-            Microsoft.Msagl.Drawing.Color.Blue;
-            Microsoft.Msagl.GraphViewerGdi.GraphRenderer renderer
-            = new Microsoft.Msagl.GraphViewerGdi.GraphRenderer
-            (graph);
-            renderer.CalculateLayout();
-            int width = 50;
-            Bitmap bitmap = new Bitmap(width, (int)(graph.Height *
-            (width / graph.Width)), PixelFormat.Format32bppPArgb);
-            renderer.Render(bitmap);
-            bitmap.Save("test.png");
-            CoronaImage.Load("test.png");
+            
+        }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void tableLayoutPanel2_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
