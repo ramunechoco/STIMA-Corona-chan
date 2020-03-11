@@ -5,32 +5,38 @@ using System.Text;
 using System.Threading.Tasks;
 using Coronachan;
 
-namespace bfs{
-    class Vertex{
+namespace bfs
+{
+    class Vertex
+    {
         String name;//City
         private int population;//Population 
         private int time_f;//Time
         private List<Tuple<Vertex, double>> adjlist; //Tr(A,...)
 
-        Vertex(String name,List<Tuple<Vertex,double>> adjlist,int population,int time_f){
+        Vertex(String name, List<Tuple<Vertex, double>> adjlist, int population, int time_f)
+        {
             this.name = name;
             this.adjlist = adjlist;
             this.population = population;
             this.time_f = time_f;
         }
 
-        Vertex(String name, List<Tuple<Vertex, double>> adjlist){
+        Vertex(String name, List<Tuple<Vertex, double>> adjlist)
+        {
             this.name = name;
             this.adjlist = adjlist;
             this.population = 0;
             this.time_f = 0;
         }
 
-        public int time_if(int t){
+        public int time_if(int t)
+        {
             return t - this.time_f;
         }
 
-        public void set_time_f(int t){
+        public void set_time_f(int t)
+        {
             this.time_f = t;
         }
 
@@ -44,23 +50,28 @@ namespace bfs{
             return this.adjlist;
         }
 
-        public int get_time_f(){
+        public int get_time_f()
+        {
             return this.time_f;
         }
 
-        public void set_population(int pop){
+        public void set_population(int pop)
+        {
             this.population = pop;
         }
 
-        public int get_population(){
+        public int get_population()
+        {
             return this.population;
         }
 
-        public void set_name(string name){
+        public void set_name(string name)
+        {
             this.name = name;
         }
 
-        public string get_name(){
+        public string get_name()
+        {
             return this.name;
         }
 
@@ -81,9 +92,12 @@ namespace bfs{
 
         public double timeTransfer(Vertex cityA)
         {
+            List<Tuple<string, double>> list = new List<Tuple<string, double>>();
+            list = cityA.get_adjlist();
+            
             double upperlevel;
             double lowerlevel;
-            upperlevel = (cityA.get_population() * cityA.adjlist.Item2) - 1;
+            upperlevel = (cityA.get_population() * list.Item2) - 1;
             lowerlevel = cityA.get_population() - 1;
 
             double result = -4 * Math.Log(upperlevel / lowerlevel);
@@ -107,36 +121,45 @@ namespace bfs{
         }
     }
 
-    public class graph{
+    public class graph
+    {
         Vertex[] adjlist;
-        public void bfs(){
+        public void bfs()
+        {
             Queue<Int32> queue = new Queue<int>();
             bool[] visited = new bool[adjlist.Length];
-            for (int v = 0; v < visited.Length; v++){
-                if(!visited[v]){
-                    bfs(v,visited,queue);
+            for (int v = 0; v < visited.Length; v++)
+            {
+                if (!visited[v])
+                {
+                    bfs(v, visited, queue);
                 }
             }
         }
-        private void bfs(int start,bool[] visited,Queue<Int32> queue){
+        private void bfs(int start, bool[] visited, Queue<Int32> queue)
+        {
             visited[start] = true;
+            List<Tuple<string, double>> list = new List<Tuple<string, double>>();
+
             Console.WriteLine("Visiting " + adjlist[start].get_name());
             queue.Enqueue(start);
 
-            while(queue.Count != 0){
+            while (queue.Count != 0)
+            {
+                list = adjlist[start].get_adjlist();
                 int v = queue.Dequeue();
-                    List<Tuple<Vertex,double>> vnum = adjlist.get_adjlist();
-                    int vnum = (int) vnum.Item2;
+                int vnum = (int)list.Item2;
 
-                    if(!visited[v] && adjlist.transferRate(adjlist[v])){
-                        Console.WriteLine("Visiting " + adjlist[v].get_name());
+                if (!visited[v] && adjlist[v].transferRate(adjlist[v]))
+                {
+                    Console.WriteLine("Visiting " + adjlist[v].get_name());
 
-                        visited[v] = true;
-                        queue.Enqueue(v);
-                    }
+                    visited[v] = true;
+                    queue.Enqueue(vnum);
                 }
             }
         }
     }
 }
+
 
