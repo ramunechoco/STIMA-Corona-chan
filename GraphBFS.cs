@@ -56,13 +56,13 @@ namespace bfs{
             next = k;
         }
 
-        public double infectedPeople(Vertex cityA){//-->I(P(A),T(A))
+        private static double infectedPeople(Vertex cityA){//-->I(P(A),T(A))
             double time1 = (double) cityA.time_f;
             double infected = cityA.population * time1 / 20;
             return infected;
         }
 
-        public double infectedF(Vertex cityA){
+        private static double infectedF(Vertex cityA){
             double time1 = (double) cityA.time_f;
             
             double upperlevel;
@@ -90,7 +90,7 @@ namespace bfs{
             return result;
         }
 
-        public bool transferRate(Vertex cityA){//S(A,B)
+        private static bool transferRate(Vertex cityA){//S(A,B)
 >>>>>>> 9091a894ae4dc7b6a90d97a50a5905ef2ce5b1e8
             bool infected = false;
             double transferRate = timeTransfer(cityA);
