@@ -124,13 +124,10 @@ namespace bfs{
                 for(Tonari k = adjlist[v].adjlist; k != null; k = k.next){
                     int vnum = k.transmission;
 
-<<<<<<< HEAD
+
                     if(!visited[vnum] && transferRate(adjlist[v])){
                         Console.WriteLine("Visiting " + adjlist[vnum].get_name());
-=======
-                    if(!visited[vnum] && transferRate(adjlist)){
-                        Console.Writeln("Visiting " + adjlist[vnum].name);
->>>>>>> 9091a894ae4dc7b6a90d97a50a5905ef2ce5b1e8
+
                         visited[vnum] = true;
                         queue.Enqueue(vnum);
                     }
