@@ -86,7 +86,7 @@ namespace bfs{
             return infectedF;
         }
 
-        public bool transferRate(Vertex cityA){//S(A,B)
+        private static bool transferRate(Vertex cityA){//S(A,B)
             bool infected = false;
             double transferRate = cityA.get_adjlist().transmission * infectedPeople(cityA);
 
@@ -123,7 +123,7 @@ namespace bfs{
                 for(Tonari k = adjlist[v].get_adjlist(); k != null; k = k.next){
                     int vnum = (int) k.transmission;
 
-                    if(!visited[vnum] && transferRate(adjlist[v])){ //ini benerin yak gw gangerti kodenya
+                    if(!visited[vnum] && transferRate(adjlist[v])){
                         Console.WriteLine("Visiting " + adjlist[vnum].get_name());
                         visited[vnum] = true;
                         queue.Enqueue(vnum);
