@@ -148,14 +148,13 @@ namespace bfs
             {
                 list = adjlist[start].get_adjlist();
                 int v = queue.Dequeue();
-                int vnum = (int)list.Item2;
 
                 if (!visited[v] && adjlist[v].transferRate(adjlist[v]))
                 {
                     Console.WriteLine("Visiting " + adjlist[v].get_name());
 
                     visited[v] = true;
-                    queue.Enqueue(vnum);
+                    queue.Enqueue(v);
                 }
             }
         }
