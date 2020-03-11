@@ -45,11 +45,19 @@ namespace bfs{
         public int get_population(){
             return this.population;
         }
+
+        public void set_name(string name){
+            this.name = name;
+        }
+
+        public int get_name(){
+            return this.name;
+        }
     }
 
     class Tonari{
-        public double transmission; //Tr(A,...)
-        public Tonari next;
+        private double transmission; //Tr(A,...)
+        private Tonari next;
         
         public Tonari(int vnum,Tonari k){
             this.transmission = vnum;
@@ -117,7 +125,7 @@ namespace bfs{
 
         private void bfs(int start,bool[] visited,Queue<Int32> queue){
             visited[start] = true;
-            Console.Writeln("Visiting " + adjlist[start].name);
+            Console.Writeln("Visiting " + adjlist[start].get_name());
             queue.Enqueue(start);
 
             while(!queue.IsEmpty()){
