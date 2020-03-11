@@ -94,10 +94,10 @@ namespace bfs
         {
             List<Tuple<Vertex, double>> list = new List<Tuple<Vertex, double>>();
             list = cityA.get_adjlist();
-            
+            int index = list.FindIndex(t => t.Item1 == get_name());
             double upperlevel;
             double lowerlevel;
-            upperlevel = (cityA.get_population() * list.Item2) - 1;
+            upperlevel = (cityA.get_population() * list[index].Item2) - 1;
             lowerlevel = cityA.get_population() - 1;
 
             double result = -4 * Math.Log(upperlevel / lowerlevel);
