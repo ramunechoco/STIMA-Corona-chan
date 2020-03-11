@@ -56,13 +56,13 @@ namespace bfs{
             next = k;
         }
 
-        public static double infectedPeople(Vertex cityA){//-->I(P(A),T(A))
+        private static double infectedPeople(Vertex cityA){//-->I(P(A),T(A))
             double time1 = (double) cityA.time_f;
             double infected = cityA.population * time1 / 20;
             return infected;
         }
 
-        public static double infectedF(Vertex cityA){
+        private static double infectedF(Vertex cityA){
             double time1 = (double) cityA.time_f;
             
             double upperlevel;
@@ -76,7 +76,7 @@ namespace bfs{
             return infectedF;
         }
 
-        public double timeTransfer(Vertex cityA){
+        private double timeTransfer(Vertex cityA){
             double upperlevel;
             double lowerlevel;
 
@@ -87,7 +87,7 @@ namespace bfs{
             return result;
         }
 
-        public static bool transferRate(Vertex cityA){//S(A,B)
+        private static bool transferRate(Vertex cityA){//S(A,B)
             bool infected = false;
             double transferRate = timeTransfer(cityA);
 
@@ -103,6 +103,7 @@ namespace bfs{
 
     public class graph{
         Vertex[] adjlist;
+        Tonari T = new Tonari();
 
         public void bfs(){
             Queue<Int32> queue = new Queue<Int>();
@@ -125,7 +126,7 @@ namespace bfs{
                     int vnum = k.transmission;
 
 
-                    if(!visited[vnum] && transferRate(adjlist[v])){
+                    if(!visited[vnum] && T.transferRate(adjlist[v])){
                         Console.WriteLine("Visiting " + adjlist[vnum].get_name());
 
                         visited[vnum] = true;
