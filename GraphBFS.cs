@@ -83,7 +83,7 @@ namespace bfs{
         {
             double upperlevel;
             double lowerlevel;
-            upperlevel = (cityA.get_population() * ) - 1;
+            upperlevel = (cityA.get_population() * cityA.adjlist.Item2) - 1;
             lowerlevel = cityA.get_population() - 1;
 
             double result = -4 * Math.Log(upperlevel / lowerlevel);
@@ -125,9 +125,9 @@ namespace bfs{
 
             while(queue.Count != 0){
                 int v = queue.Dequeue();
-                    int vnum = (int) k.get_transmission();
+                    int vnum = (int) adjlist.adjlist.Item2;
 
-                    if(!visited[vnum] && k.transferRate(adjlist[v])){
+                    if(!visited[vnum] && adjlist.transferRate(adjlist[v])){
                         Console.WriteLine("Visiting " + adjlist[v].get_name());
 
                         visited[vnum] = true;
