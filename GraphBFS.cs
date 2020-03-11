@@ -34,6 +34,16 @@ namespace bfs{
             this.time_f = t;
         }
 
+        public void set_adjlist(Tonari adjlist)
+        {
+            this.adjlist = adjlist;
+        }
+
+        public Tonari get_adjlist()
+        {
+            return this.adjlist;
+        }
+
         public int get_time_f(){
             return this.time_f;
         }
@@ -50,7 +60,7 @@ namespace bfs{
             this.name = name;
         }
 
-        public int get_name(){
+        public string get_name(){
             return this.name;
         }
     }
@@ -59,43 +69,54 @@ namespace bfs{
         private double transmission; //Tr(A,...)
         private Tonari next;
         
-        public Tonari(int vnum,Tonari k){
+        Tonari(int vnum,Tonari k){
             this.transmission = vnum;
             next = k;
         }
 
-        private static double infectedPeople(Vertex cityA){//-->I(P(A),T(A))
-            double time1 = (double) cityA.time_f;
-            double infected = cityA.population * time1 / 20;
+        public void set_transmission(double transmission)
+        {
+            this.transmission = transmission;
+        }
+
+        public double get_transmission()
+        {
+            return this.transmission;
+        }
+
+        public infectedPeople(Vertex cityA){//-->I(P(A),T(A))
+            double time1 = (double) cityA.get_time_f();
+            double infected = cityA.get_population() * time1 / 20;
             return infected;
         }
 
-        private static double infectedF(Vertex cityA){
-            double time1 = (double) cityA.time_f;
+        public double infectedF(Vertex cityA){
+            double time1 = (double) cityA.get_time_f();
             
             double upperlevel;
             double lowerlevel;
 
-                upperlevel = cityA.population;
-                lowerlevel = 1 + (cityA.population - 1) * Math.Exp(time1 * (-1) / 4);
+                upperlevel = cityA.get_population();
+                lowerlevel = 1 + (cityA.get_population() - 1) * Math.Exp(time1 * (-1) / 4);
 
                 double infectedF = upperlevel/lowerlevel;
 
             return infectedF;
         }
 
-        private double timeTransfer(Vertex cityA){
+        public double timeTransfer(Vertex cityA){
             double upperlevel;
             double lowerlevel;
 
-            upperlevel = (cityA.population * cityA.adjlist.transmission) - 1;
-            lowerlevel =  cityA.population - 1;
+            Tonari k = cityA.adjlist;
+            upperlevel = (cityA.get_population() * k.get_transmission()) - 1;
+            lowerlevel =  cityA.get_population() - 1;
 
             double result = -4 * Math.Log(upperlevel/lowerlevel);
             return result;
         }
 
-        private static bool transferRate(Vertex cityA){//S(A,B)
+        public bool transferRate(Vertex cityA){//S(A,B)
             bool infected = false;
             double transferRate = timeTransfer(cityA);
 
@@ -111,12 +132,11 @@ namespace bfs{
 
     public class graph{
         Vertex[] adjlist;
-        Tonari T = new Tonari();
 
         public void bfs(){
-            Queue<Int32> queue = new Queue<Int>();
-            bool[] visited = new bool[adjlist.length];
-            for (int v = 0; v < visited.length; v++){
+            Queue<Int32> queue = new Queue<int>();
+            bool[] visited = new bool[adjlist.Length];
+            for (int v = 0; v < visited.Length; v++){
                 if(!visited[v]){
                     bfs(v,visited,queue);
                 }
@@ -125,17 +145,15 @@ namespace bfs{
 
         private void bfs(int start,bool[] visited,Queue<Int32> queue){
             visited[start] = true;
-            Console.Writeln("Visiting " + adjlist[start].get_name());
+            Console.Writeline("Visiting " + adjlist[start].get_name());
             queue.Enqueue(start);
 
-            while(!queue.IsEmpty()){
+            while(queue.Count != 0){
                 int v = queue.Dequeue();
-                for(Tonari k = adjlist[v].adjlist; k != null; k = k.next){
-                    int vnum = k.transmission;
+                    double vnum = k.get_transmission();
 
-
-                    if(!visited[vnum] && T.transferRate(adjlist[v])){
-                        Console.WriteLine("Visiting " + adjlist[vnum].get_name());
+                    if(!visited[vnum] && Tonari.transferRate(adjlist[v])){
+                        Console.WriteLine("Visiting " + adjlist[v].get_name());
 
                         visited[vnum] = true;
                         queue.Enqueue(vnum);
@@ -145,4 +163,4 @@ namespace bfs{
         }
     }
 }
-}
+
