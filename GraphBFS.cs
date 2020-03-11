@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Coronachan;
 
-namespace Coronachan
+namespace bfs
 {
     class Vertex
     {
         String name;//City
         private int population;//Population 
         private int time_f;//Time
-        private List<Tuple<string, double>> adjlist; //Tr(A,...)
+        private List<Tuple<Vertex, double>> adjlist; //Tr(A,...)
 
-        Vertex(String name, List<Tuple<string, double>> adjlist, int population, int time_f)
+        Vertex(String name, List<Tuple<Vertex, double>> adjlist, int population, int time_f)
         {
             this.name = name;
             this.adjlist = adjlist;
@@ -21,14 +22,7 @@ namespace Coronachan
             this.time_f = time_f;
         }
 
-        public Vertex()
-        {
-            this.name = "noname";
-            this.population = 0;
-            this.time_f = 0;
-        }
-
-        Vertex(String name, List<Tuple<string, double>> adjlist)
+        Vertex(String name, List<Tuple<Vertex, double>> adjlist)
         {
             this.name = name;
             this.adjlist = adjlist;
@@ -46,12 +40,12 @@ namespace Coronachan
             this.time_f = t;
         }
 
-        public void set_adjlist(List<Tuple<string, double>> adjlist)
+        public void set_adjlist(List<Tuple<Vertex, double>> adjlist)
         {
             this.adjlist = adjlist;
         }
 
-        public List<Tuple<string, double>> get_adjlist()
+        public List<Tuple<Vertex, double>> get_adjlist()
         {
             return this.adjlist;
         }
@@ -98,7 +92,7 @@ namespace Coronachan
 
         public double timeTransfer(Vertex cityA)
         {
-            List<Tuple<string, double>> list = new List<Tuple<string, double>>();
+            List<Tuple<Vertex, double>> list = new List<Tuple<Vertex, double>>();
             list = cityA.get_adjlist();
             int index = list.FindIndex(t => t.Item1 == get_name());
             double upperlevel;
@@ -108,6 +102,44 @@ namespace Coronachan
 
             double result = -4 * Math.Log(upperlevel / lowerlevel);
             return result;
+        }
+
+        public double timeAnother(Vertex city) 
+        {
+            Vertex[] cityA = new Vertex[cityA.Length];
+            List<Tuple<Vertex, double>> list = new List<Tuple<Vertex, double>>();
+            int i = 0;
+            list = cityA[i].get_adjlist();
+            int index = list.FindIndex(t => t.Item1 == get_name());
+            while (i < cityA.Length)
+            {
+                int j = 0;
+                double time = Math.Floor(timeTransfer(cityA[i])) + 1;
+                if (cityA[j].get_name() == list[index].Item1)
+                {
+                    cityA[j].time_if(time);
+                    index++;
+                    j = 0;
+                }
+                else if(cityA[j].get_name() != list[index].Item1 && index < list.Length)
+                {
+                    j++;
+                }
+                else
+                {
+                    index = 0;
+                    i++;
+                    if(i < cityA.Length)
+                    {
+                        list = cityA[i].get_adjlist();
+                        int index = list.FindIndex(t => t.Item1 == get_name());
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
         }
         public bool transferRate(Vertex cityA)
         {//S(A,B)
@@ -130,10 +162,6 @@ namespace Coronachan
     public class graph
     {
         Vertex[] adjlist;
-        graph(Vertex[] vertices)
-        {
-            this.adjlist = vertices;
-        }
         public void bfs()
         {
             Queue<Int32> queue = new Queue<int>();
@@ -149,9 +177,11 @@ namespace Coronachan
         private void bfs(int start, bool[] visited, Queue<Int32> queue)
         {
             visited[start] = true;
-            List<Tuple<string, double>> list = new List<Tuple<string, double>>();
-            //Console.WriteLine("Visiting " + adjlist[start].get_name());
+            List<Tuple<Vertex, double>> list = new List<Tuple<Vertex, double>>();
+
+            Console.WriteLine("Visiting " + adjlist[start].get_name());
             queue.Enqueue(start);
+
             while (queue.Count != 0)
             {
                 list = adjlist[start].get_adjlist();
@@ -159,7 +189,8 @@ namespace Coronachan
 
                 if (!visited[v] && adjlist[v].transferRate(adjlist[v]))
                 {
-                    //Console.WriteLine("Visiting " + adjlist[v].get_name());
+                    Console.WriteLine("Visiting " + adjlist[v].get_name());
+
                     visited[v] = true;
                     queue.Enqueue(v);
                 }
