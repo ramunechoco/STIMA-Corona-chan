@@ -125,7 +125,8 @@ namespace bfs{
 
             while(queue.Count != 0){
                 int v = queue.Dequeue();
-                    int vnum = (int) adjlist.adjlist.Item2;
+                    List<Tuple<Vertex,double>> vnum = adjlist.get_adjlist();
+                    int vnum = (int) vnum.Item2;
 
                     if(!visited[vnum] && adjlist.transferRate(adjlist[v])){
                         Console.WriteLine("Visiting " + adjlist[v].get_name());
