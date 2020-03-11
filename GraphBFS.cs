@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Ling;
 using System.Text;
 using System.Threading.Tasks;
-using Coronachan;
+using Region;
 
 namespace bfs{
     class Vertex{
@@ -26,11 +26,6 @@ namespace bfs{
             this.time_f = 0;
         }
 
-        public string get_name()
-        {
-            return this.name;
-        }
-
         public int time_if(int t){
             return t - this.time_f;
         }
@@ -50,11 +45,6 @@ namespace bfs{
         public int get_population(){
             return this.population;
         }
-
-        public Tonari get_adjlist()
-        {
-            return this.adjlist;
-        }
     }
 
     class Tonari{
@@ -67,30 +57,45 @@ namespace bfs{
         }
 
         public double infectedPeople(Vertex cityA){//-->I(P(A),T(A))
-            double time1 = (double) cityA.get_time_f();
-            double infected = cityA.get_population() * time1 / 20;
+            double time1 = (double) cityA.time_f;
+            double infected = cityA.population * time1 / 20;
             return infected;
         }
 
         public double infectedF(Vertex cityA){
-            double time1 = (double) cityA.get_time_f();
+            double time1 = (double) cityA.time_f;
             
             double upperlevel;
             double lowerlevel;
 
-                upperlevel = cityA.get_population();
-                lowerlevel = 1 + (cityA.get_population() - 1) * Math.Exp(time1 * (-1) / 4);
+                upperlevel = cityA.population;
+                lowerlevel = 1 + (cityA.population - 1) * Math.Exp(time1 * (-1) / 4);
 
                 double infectedF = upperlevel/lowerlevel;
 
             return infectedF;
         }
 
+<<<<<<< HEAD
         private static bool transferRate(Vertex cityA){//S(A,B)
-            bool infected = false;
-            double transferRate = cityA.get_adjlist().transmission * infectedPeople(cityA);
+=======
+        public double timeTransfer(Vertex cityA){
+            double upperlevel;
+            double lowerlevel;
 
-            if(transferRate < 1){
+            upperlevel = (cityA.population * cityA.adjlist.transmission) - 1;
+            lowerlevel =  cityA.population - 1;
+
+            double result = -4 * Math.Log(upperlevel/lowerlevel);
+            return result;
+        }
+
+        public bool transferRate(Vertex cityA){//S(A,B)
+>>>>>>> 9091a894ae4dc7b6a90d97a50a5905ef2ce5b1e8
+            bool infected = false;
+            double transferRate = timeTransfer(cityA);
+
+            if(transferRate <= 1){
                 infected = true;
             }
             else{
@@ -104,9 +109,9 @@ namespace bfs{
         Vertex[] adjlist;
 
         public void bfs(){
-            Queue<Int32> queue = new Queue<int>();
-            bool[] visited = new bool[adjlist.Length];
-            for (int v = 0; v < visited.Length; v++){
+            Queue<Int32> queue = new Queue<Int>();
+            bool[] visited = new bool[adjlist.length];
+            for (int v = 0; v < visited.length; v++){
                 if(!visited[v]){
                     bfs(v,visited,queue);
                 }
@@ -115,16 +120,21 @@ namespace bfs{
 
         private void bfs(int start,bool[] visited,Queue<Int32> queue){
             visited[start] = true;
-            Console.WriteLine("Visiting " + adjlist[start].get_name());
+            Console.Writeln("Visiting " + adjlist[start].name);
             queue.Enqueue(start);
 
-            while(queue.Count != 0){
+            while(!queue.IsEmpty()){
                 int v = queue.Dequeue();
-                for(Tonari k = adjlist[v].get_adjlist(); k != null; k = k.next){
-                    int vnum = (int) k.transmission;
+                for(Tonari k = adjlist[v].adjlist; k != null; k = k.next){
+                    int vnum = k.transmission;
 
+<<<<<<< HEAD
                     if(!visited[vnum] && transferRate(adjlist[v])){
                         Console.WriteLine("Visiting " + adjlist[vnum].get_name());
+=======
+                    if(!visited[vnum] && transferRate(adjlist)){
+                        Console.Writeln("Visiting " + adjlist[vnum].name);
+>>>>>>> 9091a894ae4dc7b6a90d97a50a5905ef2ce5b1e8
                         visited[vnum] = true;
                         queue.Enqueue(vnum);
                     }
