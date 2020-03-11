@@ -104,9 +104,9 @@ namespace bfs
             return result;
         }
 
-        public double timeAnother(Vertex city) 
+        public Vertex timeAnother(Vertex[] city) 
         {
-            Vertex[] cityA = new Vertex[cityA.Length];
+            Vertex[] cityA = new Vertex[city.Length];
             List<Tuple<Vertex, double>> list = new List<Tuple<Vertex, double>>();
             int i = 0;
             list = cityA[i].get_adjlist();
@@ -127,7 +127,6 @@ namespace bfs
                 }
                 else
                 {
-                    index = 0;
                     i++;
                     if(i < cityA.Length)
                     {
@@ -140,6 +139,7 @@ namespace bfs
                     }
                 }
             }
+            return cityA;
         }
         public bool transferRate(Vertex cityA)
         {//S(A,B)
