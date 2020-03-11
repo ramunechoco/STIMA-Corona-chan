@@ -94,7 +94,7 @@ namespace bfs
         {
             List<Tuple<Vertex, double>> list = new List<Tuple<Vertex, double>>();
             list = cityA.get_adjlist();
-            int index = list.FindIndex(t => t.Item1 == get_name());
+            int index = list.FindIndex(t => t.Item1.get_name() == get_name());
             double upperlevel;
             double lowerlevel;
             upperlevel = (cityA.get_population() * list[index].Item2) - 1;
@@ -141,7 +141,7 @@ namespace bfs
             visited[start] = true;
             List<Tuple<Vertex, double>> list = new List<Tuple<Vertex, double>>();
 
-            Console.WriteLine("Visiting " + adjlist[start].get_name());
+            //Console.WriteLine("Visiting " + adjlist[start].get_name());
             queue.Enqueue(start);
 
             while (queue.Count != 0)

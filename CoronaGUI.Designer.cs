@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            Microsoft.Msagl.Core.Geometry.Curves.PlaneTransformation planeTransformation1 = new Microsoft.Msagl.Core.Geometry.Curves.PlaneTransformation();
             this.uploadmap = new System.Windows.Forms.Button();
             this.textBoxPop = new System.Windows.Forms.TextBox();
             this.uploadpop = new System.Windows.Forms.Button();
@@ -35,18 +36,19 @@
             this.Calculator = new System.Windows.Forms.Button();
             this.DayCounter = new System.Windows.Forms.NumericUpDown();
             this.DayCounterLabel = new System.Windows.Forms.Label();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.LargeLayoutTable = new System.Windows.Forms.TableLayoutPanel();
+            this.smallLayoutTable = new System.Windows.Forms.TableLayoutPanel();
+            this.smallerLayoutTable = new System.Windows.Forms.TableLayoutPanel();
+            this.gViewer = new Microsoft.Msagl.GraphViewerGdi.GViewer();
             ((System.ComponentModel.ISupportInitialize)(this.DayCounter)).BeginInit();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
+            this.LargeLayoutTable.SuspendLayout();
+            this.smallLayoutTable.SuspendLayout();
+            this.smallerLayoutTable.SuspendLayout();
             this.SuspendLayout();
             // 
             // uploadmap
             // 
-            this.uploadmap.Location = new System.Drawing.Point(550, 3);
+            this.uploadmap.Location = new System.Drawing.Point(642, 3);
             this.uploadmap.Name = "uploadmap";
             this.uploadmap.Size = new System.Drawing.Size(161, 32);
             this.uploadmap.TabIndex = 0;
@@ -59,13 +61,13 @@
             this.textBoxPop.Location = new System.Drawing.Point(3, 41);
             this.textBoxPop.Name = "textBoxPop";
             this.textBoxPop.ReadOnly = true;
-            this.textBoxPop.Size = new System.Drawing.Size(541, 26);
+            this.textBoxPop.Size = new System.Drawing.Size(633, 26);
             this.textBoxPop.TabIndex = 3;
             this.textBoxPop.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // uploadpop
             // 
-            this.uploadpop.Location = new System.Drawing.Point(550, 41);
+            this.uploadpop.Location = new System.Drawing.Point(642, 41);
             this.uploadpop.Name = "uploadpop";
             this.uploadpop.Size = new System.Drawing.Size(161, 32);
             this.uploadpop.TabIndex = 1;
@@ -78,16 +80,18 @@
             this.textBoxMap.Location = new System.Drawing.Point(3, 3);
             this.textBoxMap.Name = "textBoxMap";
             this.textBoxMap.ReadOnly = true;
-            this.textBoxMap.Size = new System.Drawing.Size(541, 26);
+            this.textBoxMap.Size = new System.Drawing.Size(633, 26);
             this.textBoxMap.TabIndex = 2;
             this.textBoxMap.TextChanged += new System.EventHandler(this.textBoxMap_TextChanged);
             // 
             // Calculator
             // 
-            this.Calculator.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Calculator.Location = new System.Drawing.Point(829, 379);
+            this.Calculator.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Calculator.Location = new System.Drawing.Point(817, 386);
             this.Calculator.Name = "Calculator";
-            this.Calculator.Size = new System.Drawing.Size(143, 70);
+            this.Calculator.Size = new System.Drawing.Size(155, 81);
             this.Calculator.TabIndex = 4;
             this.Calculator.Text = "Calculate!";
             this.Calculator.UseVisualStyleBackColor = true;
@@ -95,7 +99,7 @@
             // 
             // DayCounter
             // 
-            this.DayCounter.Location = new System.Drawing.Point(3, 87);
+            this.DayCounter.Location = new System.Drawing.Point(3, 54);
             this.DayCounter.Name = "DayCounter";
             this.DayCounter.Size = new System.Drawing.Size(149, 26);
             this.DayCounter.TabIndex = 5;
@@ -109,68 +113,116 @@
             this.DayCounterLabel.TabIndex = 6;
             this.DayCounterLabel.Text = "Day since outbreak";
             // 
-            // tableLayoutPanel1
+            // LargeLayoutTable
             // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 83.5729F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.4271F));
-            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel3, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.Calculator, 1, 1);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 81.63717F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 18.36283F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(975, 452);
-            this.tableLayoutPanel1.TabIndex = 7;
+            this.LargeLayoutTable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.LargeLayoutTable.ColumnCount = 2;
+            this.LargeLayoutTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 83.5729F));
+            this.LargeLayoutTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.4271F));
+            this.LargeLayoutTable.Controls.Add(this.smallLayoutTable, 1, 0);
+            this.LargeLayoutTable.Controls.Add(this.smallerLayoutTable, 0, 1);
+            this.LargeLayoutTable.Controls.Add(this.Calculator, 1, 1);
+            this.LargeLayoutTable.Controls.Add(this.gViewer, 0, 0);
+            this.LargeLayoutTable.Location = new System.Drawing.Point(0, 0);
+            this.LargeLayoutTable.Name = "LargeLayoutTable";
+            this.LargeLayoutTable.RowCount = 2;
+            this.LargeLayoutTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 81.63717F));
+            this.LargeLayoutTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 18.36283F));
+            this.LargeLayoutTable.Size = new System.Drawing.Size(975, 470);
+            this.LargeLayoutTable.TabIndex = 7;
+            this.LargeLayoutTable.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint_1);
             // 
-            // tableLayoutPanel2
+            // smallLayoutTable
             // 
-            this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 67.80186F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 32.19814F));
-            this.tableLayoutPanel2.Controls.Add(this.textBoxMap, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.uploadpop, 1, 1);
-            this.tableLayoutPanel2.Controls.Add(this.uploadmap, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.textBoxPop, 0, 1);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 372);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 2;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(808, 77);
-            this.tableLayoutPanel2.TabIndex = 8;
-            this.tableLayoutPanel2.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel2_Paint);
+            this.smallLayoutTable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.smallLayoutTable.ColumnCount = 1;
+            this.smallLayoutTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.smallLayoutTable.Controls.Add(this.DayCounter, 0, 1);
+            this.smallLayoutTable.Controls.Add(this.DayCounterLabel, 0, 0);
+            this.smallLayoutTable.Location = new System.Drawing.Point(817, 3);
+            this.smallLayoutTable.Name = "smallLayoutTable";
+            this.smallLayoutTable.RowCount = 2;
+            this.smallLayoutTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 13.60947F));
+            this.smallLayoutTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 86.39053F));
+            this.smallLayoutTable.Size = new System.Drawing.Size(155, 377);
+            this.smallLayoutTable.TabIndex = 8;
             // 
-            // tableLayoutPanel3
+            // smallerLayoutTable
             // 
-            this.tableLayoutPanel3.ColumnCount = 1;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Controls.Add(this.DayCounter, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.DayCounterLabel, 0, 0);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(817, 3);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 2;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(155, 169);
-            this.tableLayoutPanel3.TabIndex = 8;
+            this.smallerLayoutTable.ColumnCount = 2;
+            this.smallerLayoutTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 79.08416F));
+            this.smallerLayoutTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.91584F));
+            this.smallerLayoutTable.Controls.Add(this.textBoxMap, 0, 0);
+            this.smallerLayoutTable.Controls.Add(this.uploadpop, 1, 1);
+            this.smallerLayoutTable.Controls.Add(this.uploadmap, 1, 0);
+            this.smallerLayoutTable.Controls.Add(this.textBoxPop, 0, 1);
+            this.smallerLayoutTable.Location = new System.Drawing.Point(3, 386);
+            this.smallerLayoutTable.Name = "smallerLayoutTable";
+            this.smallerLayoutTable.RowCount = 2;
+            this.smallerLayoutTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.smallerLayoutTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.smallerLayoutTable.Size = new System.Drawing.Size(808, 77);
+            this.smallerLayoutTable.TabIndex = 8;
+            this.smallerLayoutTable.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel2_Paint);
+            // 
+            // gViewer
+            // 
+            this.gViewer.ArrowheadLength = 10D;
+            this.gViewer.AsyncLayout = false;
+            this.gViewer.AutoScroll = true;
+            this.gViewer.BackwardEnabled = false;
+            this.gViewer.BuildHitTree = true;
+            this.gViewer.CurrentLayoutMethod = Microsoft.Msagl.GraphViewerGdi.LayoutMethod.UseSettingsOfTheGraph;
+            this.gViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gViewer.EdgeInsertButtonVisible = true;
+            this.gViewer.FileName = "";
+            this.gViewer.ForwardEnabled = false;
+            this.gViewer.Graph = null;
+            this.gViewer.InsertingEdge = false;
+            this.gViewer.LayoutAlgorithmSettingsButtonVisible = true;
+            this.gViewer.LayoutEditingEnabled = true;
+            this.gViewer.Location = new System.Drawing.Point(3, 3);
+            this.gViewer.LooseOffsetForRouting = 0.25D;
+            this.gViewer.MouseHitDistance = 0.05D;
+            this.gViewer.Name = "gViewer";
+            this.gViewer.NavigationVisible = true;
+            this.gViewer.NeedToCalculateLayout = true;
+            this.gViewer.OffsetForRelaxingInRouting = 0.6D;
+            this.gViewer.PaddingForEdgeRouting = 8D;
+            this.gViewer.PanButtonPressed = false;
+            this.gViewer.SaveAsImageEnabled = true;
+            this.gViewer.SaveAsMsaglEnabled = true;
+            this.gViewer.SaveButtonVisible = true;
+            this.gViewer.SaveGraphButtonVisible = true;
+            this.gViewer.SaveInVectorFormatEnabled = true;
+            this.gViewer.Size = new System.Drawing.Size(808, 377);
+            this.gViewer.TabIndex = 3;
+            this.gViewer.TightOffsetForRouting = 0.125D;
+            this.gViewer.ToolBarIsVisible = true;
+            this.gViewer.Transform = planeTransformation1;
+            this.gViewer.UndoRedoButtonsVisible = true;
+            this.gViewer.WindowZoomButtonPressed = false;
+            this.gViewer.ZoomF = 1D;
+            this.gViewer.ZoomWindowThreshold = 0.05D;
             // 
             // CoronaGUIForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(975, 450);
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.ClientSize = new System.Drawing.Size(975, 468);
+            this.Controls.Add(this.LargeLayoutTable);
             this.Name = "CoronaGUIForm";
             this.Text = "Corona-chan Simulation Project 発生プロジェクト";
             ((System.ComponentModel.ISupportInitialize)(this.DayCounter)).EndInit();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
-            this.tableLayoutPanel3.ResumeLayout(false);
-            this.tableLayoutPanel3.PerformLayout();
+            this.LargeLayoutTable.ResumeLayout(false);
+            this.smallLayoutTable.ResumeLayout(false);
+            this.smallLayoutTable.PerformLayout();
+            this.smallerLayoutTable.ResumeLayout(false);
+            this.smallerLayoutTable.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -184,8 +236,9 @@
         private System.Windows.Forms.Button Calculator;
         private System.Windows.Forms.NumericUpDown DayCounter;
         private System.Windows.Forms.Label DayCounterLabel;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private Microsoft.Msagl.GraphViewerGdi.GViewer gViewer;
+        private System.Windows.Forms.TableLayoutPanel LargeLayoutTable;
+        private System.Windows.Forms.TableLayoutPanel smallerLayoutTable;
+        private System.Windows.Forms.TableLayoutPanel smallLayoutTable;
     }
 }
