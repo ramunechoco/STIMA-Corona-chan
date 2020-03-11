@@ -92,7 +92,7 @@ namespace bfs
 
         public double timeTransfer(Vertex cityA)
         {
-            List<Tuple<string, double>> list = new List<Tuple<string, double>>();
+            List<Tuple<Vertex, double>> list = new List<Tuple<Vertex, double>>();
             list = cityA.get_adjlist();
             
             double upperlevel;
@@ -139,7 +139,7 @@ namespace bfs
         private void bfs(int start, bool[] visited, Queue<Int32> queue)
         {
             visited[start] = true;
-            List<Tuple<string, double>> list = new List<Tuple<string, double>>();
+            List<Tuple<Vertex, double>> list = new List<Tuple<Vertex, double>>();
 
             Console.WriteLine("Visiting " + adjlist[start].get_name());
             queue.Enqueue(start);
