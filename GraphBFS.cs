@@ -128,11 +128,11 @@ namespace bfs{
                     List<Tuple<Vertex,double>> vnum = adjlist.get_adjlist();
                     int vnum = (int) vnum.Item2;
 
-                    if(!visited[vnum] && adjlist.transferRate(adjlist[v])){
+                    if(!visited[v] && adjlist.transferRate(adjlist[v])){
                         Console.WriteLine("Visiting " + adjlist[v].get_name());
 
-                        visited[vnum] = true;
-                        queue.Enqueue(vnum);
+                        visited[v] = true;
+                        queue.Enqueue(v);
                     }
                 }
             }
