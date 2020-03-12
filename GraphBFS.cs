@@ -108,7 +108,7 @@ namespace Coronachan
             lowerlevel = cityA.get_population() - 1;
 
             double result = -4 * Math.Log(upperlevel / lowerlevel);
-            int floor = Math.Floor(result) + 1;
+            int floor = (int) Math.Floor(result) + 1;
             this.time_f = floor;
         }
 
@@ -133,7 +133,7 @@ namespace Coronachan
         }
     }
 
-    public class graph
+    public class graphvertex
     {
         Vertex[] adjlist;
         bool[] infspread;
