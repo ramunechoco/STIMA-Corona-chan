@@ -186,7 +186,7 @@ namespace Coronachan
             visited[start] = true;
             List<Tuple<string, double>> list = new List<Tuple<string, double>>();
 
-            Console.WriteLine("Visiting " + adjlist[start].get_name());
+            //Console.WriteLine("Visiting " + adjlist[start].get_name());
             queue.Enqueue(start);
 
             while (queue.Count != 0)
@@ -196,7 +196,7 @@ namespace Coronachan
 
                 if (!visited[v] && adjlist[v].transferRate(adjlist[v]))
                 {
-                    Console.WriteLine("Visiting " + adjlist[v].get_name());
+                    //Console.WriteLine("Visiting " + adjlist[v].get_name());
 
                     visited[v] = true;
                     queue.Enqueue(v);

@@ -63,7 +63,7 @@ namespace Corona_chan_GUI
         {
             OpenFileDialog openFileMap = new OpenFileDialog
             {
-                InitialDirectory = @"C:\Users\Faris\STIMA-Corona-chan",
+                InitialDirectory = @"C:",
                 Title = "Browse Text Files",
 
                 CheckFileExists = true,
@@ -87,7 +87,7 @@ namespace Corona_chan_GUI
         {
             OpenFileDialog openFilePop = new OpenFileDialog
             {
-                InitialDirectory = @"C:\Users\Faris\STIMA-Corona-chan",
+                InitialDirectory = @"C:",
                 Title = "Browse Text Files",
 
                 CheckFileExists = true,
