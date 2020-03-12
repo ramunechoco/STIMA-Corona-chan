@@ -82,9 +82,9 @@ namespace Coronachan
             return this.name;
         }
 
-        public int infectedF(int T)
+        public double infectedF(int T)
         {
-            double time1 = T - this.get_time_f();
+            double time1 = this.time_if(T);
 
             double upperlevel;
             double lowerlevel;
@@ -92,7 +92,7 @@ namespace Coronachan
             upperlevel = this.get_population();
             lowerlevel = 1 + (this.get_population() - 1) * Math.Exp(time1 * (-1) / 4);
 
-            int infectedF = (int) (upperlevel / lowerlevel);
+            double infectedF = (upperlevel / lowerlevel);
 
             return infectedF;
         }
@@ -122,11 +122,11 @@ namespace Coronachan
 
             if (transferRate <= 1)
             {
-                infected = true;
+                infected = false;
             }
             else
             {
-                infected = false;
+                infected = true;
             }
 
             return infected;
@@ -179,11 +179,11 @@ namespace Coronachan
                 Vertex A = this.adjlist.FirstOrDefault(o => o.get_name() == tuple.Item1);
                 Vertex B = this.adjlist.FirstOrDefault(o => o.get_name() == tuple.Item2);
                 int idx = Array.IndexOf(this.adjlist, B);
-                if (A.transferRate(B, this.T) && !this.infspread[idx])
+                if ((A.transferRate(B, this.T) == true) && !this.infspread[idx])
                 {
                     B.timeTransfer(A);
                     this.infspread[idx] = true;
-                    list.Add(tuple);
+                    this.list.Add(tuple);
                     for (int i = 0; i < B.get_adjlist().Count; i++)
                     {
                         string nameone = B.get_name();

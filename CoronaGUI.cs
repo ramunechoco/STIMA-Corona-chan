@@ -53,14 +53,22 @@ namespace Corona_chan_GUI
                         graph.AddEdge(gver.get_vertices()[i].get_name(), list[k].Item1);
                     }
                 }
-                for (int j = 0; j < gver.get_vertices().Length; j++)
+                /*bool[] list = gver.get_infspread();
+                for (int k = 0; k < list.Length; k++)
                 {
-                    if (gver.get_infspread()[j])
+                    if (list[k] == true)
+                    {
+                        graph.AddEdge(k.ToString(), k+1.ToString());
+                    }
+                }*/
+            }
+            for (int j = 0; j < gver.get_vertices().Length; j++)
+                {
+                   if (gver.get_infspread()[j] == true)
                     {
                         graph.FindNode(gver.get_vertices()[j].get_name()).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
-                    }
+                   }
                 }
-            }
             //ChangeNodeSizes(graph);
 
             //var sls = graph.LayoutAlgorithmSettings as SugiyamaLayoutSettings;
