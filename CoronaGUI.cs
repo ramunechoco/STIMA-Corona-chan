@@ -45,7 +45,20 @@ namespace Corona_chan_GUI
                 list = gver.get_vertices()[i].get_adjlist();
                 for (int k = 0; k < list.Count; k++)
                 {
-                    graph.AddEdge(gver.get_vertices()[i].get_name(), list[k].Item1);
+                    if (gver.get_list().Contains(Tuple.Create(gver.get_vertices()[i].get_name(), list[k].Item1))) {
+                        graph.AddEdge(gver.get_vertices()[i].get_name(), list[k].Item1).Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
+                    }
+                    else
+                    {
+                        graph.AddEdge(gver.get_vertices()[i].get_name(), list[k].Item1);
+                    }
+                }
+                for (int j = 0; j < gver.get_vertices().Length; j++)
+                {
+                    if (gver.get_infspread()[j])
+                    {
+                        graph.FindNode(gver.get_vertices()[j].get_name()).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
+                    }
                 }
             }
             //ChangeNodeSizes(graph);

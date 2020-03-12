@@ -138,11 +138,14 @@ namespace Coronachan
         private Vertex[] adjlist;
         private bool[] infspread;
         private int T;
+        private List<Tuple<string, string>> list;
         public graphvertex(Vertex[] vertices, int T)
         {
             this.adjlist = vertices;
             this.infspread = new bool[adjlist.Length];
-            for (int i = 0; i < infspread.Length; i++)
+            this.list = new List<Tuple<string, string>>();
+            infspread[0] = true;
+            for (int i = 1; i < infspread.Length; i++)
             {
                 infspread[i] = false;
             }
@@ -156,6 +159,10 @@ namespace Coronachan
         public bool[] get_infspread()
         {
             return this.infspread;
+        }
+        public List<Tuple<string, string>> get_list()
+        {
+            return this.list;
         }
         public void bfs()
         {
@@ -175,6 +182,8 @@ namespace Coronachan
                 if (A.transferRate(B, this.T) && !this.infspread[idx])
                 {
                     B.timeTransfer(A);
+                    this.infspread[idx] = true;
+                    list.Add(tuple);
                     for (int i = 0; i < B.get_adjlist().Count; i++)
                     {
                         string nameone = B.get_name();
