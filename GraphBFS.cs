@@ -128,14 +128,14 @@ namespace Coronachan
                     index++;
                     j = 0;
                 }
-                else if(cityA[j].get_name() != list[index].Item1 && index < list.Count)
+                else if (cityA[j].get_name() != list[index].Item1 && index < list.Count)
                 {
                     j++;
                 }
                 else
                 {
                     i++;
-                    if(i < cityA.Length)
+                    if (i < cityA.Length)
                     {
                         list = cityA[i].get_adjlist();
                         index = list.FindIndex(t => t.Item1 == get_name());
@@ -169,6 +169,35 @@ namespace Coronachan
     public class graph
     {
         Vertex[] adjlist;
+        int input = Convert.ToInt32(Console.ReadLine());
+        public Vertex[] generateGraph(Vertex[] city,int input)
+        {
+            for(int i =0;i < input; i++)
+            {
+                city[i]();
+                string name = Convert.ToString(Console.Read());
+                city[i].set_name(name);
+                Console.Write(" ");
+                
+                int pop = Convert.ToInt32(Console.Read());
+                city[i].set_population(pop);
+                Console.WriteLine(" ");
+                int counter = Convert.ToInt32(Console.Read());
+                List<Tuple<string, double>>[] list = new List<Tuple<string, double>>[counter]();
+
+                for(int j = 0;j < counter; j++)
+                {
+                    string name1 = Convert.ToString(Console.Read());
+                    Console.Write(" ");
+                    double trip = Convert.ToDouble(Console.ReadLine());
+                    list[j] = Tuple.Create(name1, trip);
+
+                }
+                city[i].set_adjlist(list);
+            }
+            city.timeAnother(city);
+        }
+
         public void bfs()
         {
             Queue<Int32> queue = new Queue<int>();
