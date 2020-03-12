@@ -29,6 +29,14 @@ namespace Coronachan
             this.time_f = 0;
         }
 
+        public Vertex()
+        {
+            this.name = "noname";
+            this.adjlist = new List<Tuple<string, double>>();
+            this.population = 0;
+            this.time_f = 0;
+        }
+
         public int time_if(int t)
         {
             return t - this.time_f;
@@ -164,7 +172,7 @@ namespace Coronachan
         public void bfs()
         {
             Queue<Int32> queue = new Queue<int>();
-            bool[] visited = new bool[adjlist.Length];
+            bool[] visited = new bool[adjlist.Count()];
             for (int v = 0; v < visited.Length; v++)
             {
                 if (!visited[v])
