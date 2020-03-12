@@ -82,76 +82,43 @@ namespace Coronachan
             return this.name;
         }
 
-        public double infectedF(Vertex cityA)
+        public double infectedF()
         {
-            double time1 = (double)cityA.get_time_f();
+            double time1 = (double)this.get_time_f();
 
             double upperlevel;
             double lowerlevel;
 
-            upperlevel = cityA.get_population();
-            lowerlevel = 1 + (cityA.get_population() - 1) * Math.Exp(time1 * (-1) / 4);
+            upperlevel = this.get_population();
+            lowerlevel = 1 + (this.get_population() - 1) * Math.Exp(time1 * (-1) / 4);
 
             double infectedF = upperlevel / lowerlevel;
 
             return infectedF;
         }
 
-        public double timeTransfer(Vertex cityA)
+        public void timeTransfer(Vertex cityA)
         {
             List<Tuple<string, double>> list = new List<Tuple<string, double>>();
             list = cityA.get_adjlist();
-            int index = list.FindIndex(t => t.Item1 == get_name());
+            int index = list.FindIndex(t => t.Item1 == this.name);
             double upperlevel;
             double lowerlevel;
             upperlevel = (cityA.get_population() * list[index].Item2) - 1;
             lowerlevel = cityA.get_population() - 1;
 
             double result = -4 * Math.Log(upperlevel / lowerlevel);
-            return result;
+            int floor = Math.Floor(result) + 1;
+            this.time_f = floor;
         }
 
-        public Vertex[] timeAnother(Vertex[] city) //???
-        {
-            Vertex[] cityA = new Vertex[city.Length];
-            List<Tuple<string, double>> list = new List<Tuple<string, double>>();
-            int i = 0;
-            list = cityA[i].get_adjlist();
-            int index = list.FindIndex(t => t.Item1 == get_name());
-            while (i < cityA.Length)
-            {
-                int j = 0;
-                double time = Math.Floor(timeTransfer(cityA[i])) + 1;
-                if (cityA[j].get_name() == list[index].Item1)
-                {
-                    cityA[j].time_if((int)time);
-                    index++;
-                    j = 0;
-                }
-                else if (cityA[j].get_name() != list[index].Item1 && index < list.Count)
-                {
-                    j++;
-                }
-                else
-                {
-                    i++;
-                    if (i < cityA.Length)
-                    {
-                        list = cityA[i].get_adjlist();
-                        index = list.FindIndex(t => t.Item1 == get_name());
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-            }
-            return cityA;
-        }
-        public bool transferRate(Vertex cityA)
+        public bool transferRate(Vertex cityB)
         {//S(A,B)
             bool infected = false;
-            double transferRate = timeTransfer(cityA);
+            List<Tuple<string, double>> list = new List<Tuple<string, double>>();
+            list = this.adjlist;
+            int index = list.FindIndex(t => t.Item1 == cityB.get_name());
+            double transferRate = this.infectedF() * list[index].Item2;
 
             if (transferRate <= 1)
             {
@@ -169,48 +136,22 @@ namespace Coronachan
     public class graph
     {
         Vertex[] adjlist;
-        int input = Convert.ToInt32(Console.ReadLine());
-        public Vertex[] generateGraph(Vertex[] city,int input)
+        bool[] infspread;
+
+        public void bfs(int T)
         {
-            for(int i =0;i < input; i++)
-            {
-                city[i]();
-                string name = Convert.ToString(Console.Read());
-                city[i].set_name(name);
-                Console.Write(" ");
-                
-                int pop = Convert.ToInt32(Console.Read());
-                city[i].set_population(pop);
-                Console.WriteLine(" ");
-                int counter = Convert.ToInt32(Console.Read());
-                List<Tuple<string, double>>[] list = new List<Tuple<string, double>>[counter]();
-
-                for(int j = 0;j < counter; j++)
-                {
-                    string name1 = Convert.ToString(Console.Read());
-                    Console.Write(" ");
-                    double trip = Convert.ToDouble(Console.ReadLine());
-                    list[j] = Tuple.Create(name1, trip);
-
-                }
-                city[i].set_adjlist(list);
-            }
-            city.timeAnother(city);
-        }
-
-        public void bfs()
-        {
-            Queue<Int32> queue = new Queue<int>();
+            Queue<Tuple<string,string>> queue = new Queue<Tuple<string,string>>();
             bool[] visited = new bool[adjlist.Count()];
             for (int v = 0; v < visited.Length; v++)
             {
+                adjlist[v].timeTransfer(adjlist[v]);
                 if (!visited[v])
                 {
-                    bfs(v, visited, queue);
+                    bfs(v, visited, queue,T);
                 }
             }
         }
-        private void bfs(int start, bool[] visited, Queue<Int32> queue)
+        private void bfs(int start, bool[] visited, Queue<Tuple<string,string>> queue,int Time)
         {
             visited[start] = true;
             List<Tuple<string, double>> list = new List<Tuple<string, double>>();
@@ -232,7 +173,6 @@ namespace Coronachan
                 }
             }
         }
+
     }
 }
-
-
