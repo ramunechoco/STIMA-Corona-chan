@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Coronachan;
 
-namespace bfs
+namespace Coronachan
 {
     class Vertex
     {
         String name;//City
         private int population;//Population 
         private int time_f;//Time
-        private List<Tuple<Vertex, double>> adjlist; //Tr(A,...)
+        private List<Tuple<string, double>> adjlist; //Tr(A,...)
 
-        Vertex(String name, List<Tuple<Vertex, double>> adjlist, int population, int time_f)
+        Vertex(String name, List<Tuple<string, double>> adjlist, int population, int time_f)
         {
             this.name = name;
             this.adjlist = adjlist;
@@ -22,7 +21,7 @@ namespace bfs
             this.time_f = time_f;
         }
 
-        Vertex(String name, List<Tuple<Vertex, double>> adjlist)
+        Vertex(String name, List<Tuple<string, double>> adjlist)
         {
             this.name = name;
             this.adjlist = adjlist;
@@ -40,12 +39,12 @@ namespace bfs
             this.time_f = t;
         }
 
-        public void set_adjlist(List<Tuple<Vertex, double>> adjlist)
+        public void set_adjlist(List<Tuple<string, double>> adjlist)
         {
             this.adjlist = adjlist;
         }
 
-        public List<Tuple<Vertex, double>> get_adjlist()
+        public List<Tuple<string, double>> get_adjlist()
         {
             return this.adjlist;
         }
@@ -92,7 +91,7 @@ namespace bfs
 
         public double timeTransfer(Vertex cityA)
         {
-            List<Tuple<Vertex, double>> list = new List<Tuple<Vertex, double>>();
+            List<Tuple<string, double>> list = new List<Tuple<string, double>>();
             list = cityA.get_adjlist();
             int index = list.FindIndex(t => t.Item1 == get_name());
             double upperlevel;
@@ -104,10 +103,10 @@ namespace bfs
             return result;
         }
 
-        public Vertex timeAnother(Vertex[] city) 
+        public Vertex[] timeAnother(Vertex[] city) //???
         {
             Vertex[] cityA = new Vertex[city.Length];
-            List<Tuple<Vertex, double>> list = new List<Tuple<Vertex, double>>();
+            List<Tuple<string, double>> list = new List<Tuple<string, double>>();
             int i = 0;
             list = cityA[i].get_adjlist();
             int index = list.FindIndex(t => t.Item1 == get_name());
@@ -117,11 +116,11 @@ namespace bfs
                 double time = Math.Floor(timeTransfer(cityA[i])) + 1;
                 if (cityA[j].get_name() == list[index].Item1)
                 {
-                    cityA[j].time_if(time);
+                    cityA[j].time_if((int)time);
                     index++;
                     j = 0;
                 }
-                else if(cityA[j].get_name() != list[index].Item1 && index < list.Length)
+                else if(cityA[j].get_name() != list[index].Item1 && index < list.Count)
                 {
                     j++;
                 }
@@ -131,7 +130,7 @@ namespace bfs
                     if(i < cityA.Length)
                     {
                         list = cityA[i].get_adjlist();
-                        int index = list.FindIndex(t => t.Item1 == get_name());
+                        index = list.FindIndex(t => t.Item1 == get_name());
                     }
                     else
                     {
@@ -177,7 +176,7 @@ namespace bfs
         private void bfs(int start, bool[] visited, Queue<Int32> queue)
         {
             visited[start] = true;
-            List<Tuple<Vertex, double>> list = new List<Tuple<Vertex, double>>();
+            List<Tuple<string, double>> list = new List<Tuple<string, double>>();
 
             Console.WriteLine("Visiting " + adjlist[start].get_name());
             queue.Enqueue(start);
