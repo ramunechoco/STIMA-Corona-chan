@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Coronachan
 {
-    class Vertex
+    public class Vertex
     {
         String name;//City
         private int population;//Population 
@@ -82,9 +82,9 @@ namespace Coronachan
             return this.name;
         }
 
-        public double infectedF()
+        public int infectedF(int T)
         {
-            double time1 = (double)this.get_time_f();
+            double time1 = T - this.get_time_f();
 
             double upperlevel;
             double lowerlevel;
@@ -92,7 +92,7 @@ namespace Coronachan
             upperlevel = this.get_population();
             lowerlevel = 1 + (this.get_population() - 1) * Math.Exp(time1 * (-1) / 4);
 
-            double infectedF = upperlevel / lowerlevel;
+            int infectedF = (int) (upperlevel / lowerlevel);
 
             return infectedF;
         }
@@ -112,13 +112,13 @@ namespace Coronachan
             this.time_f = floor;
         }
 
-        public bool transferRate(Vertex cityB)
+        public bool transferRate(Vertex cityB, int T)
         {//S(A,B)
             bool infected = false;
             List<Tuple<string, double>> list = new List<Tuple<string, double>>();
             list = this.adjlist;
             int index = list.FindIndex(t => t.Item1 == cityB.get_name());
-            double transferRate = this.infectedF() * list[index].Item2;
+            double transferRate = this.infectedF(T) * list[index].Item2;
 
             if (transferRate <= 1)
             {
@@ -135,44 +135,54 @@ namespace Coronachan
 
     public class graphvertex
     {
-        Vertex[] adjlist;
-        bool[] infspread;
-
-        public void bfs(int T)
+        private Vertex[] adjlist;
+        private bool[] infspread;
+        private int T;
+        public graphvertex(Vertex[] vertices, int T)
         {
-            Queue<Tuple<string,string>> queue = new Queue<Tuple<string,string>>();
-            bool[] visited = new bool[adjlist.Count()];
-            for (int v = 0; v < visited.Length; v++)
+            this.adjlist = vertices;
+            this.infspread = new bool[adjlist.Length];
+            for (int i = 0; i < infspread.Length; i++)
             {
-                adjlist[v].timeTransfer(adjlist[v]);
-                if (!visited[v])
-                {
-                    bfs(v, visited, queue,T);
-                }
+                infspread[i] = false;
             }
+            this.T = T;
         }
-        private void bfs(int start, bool[] visited, Queue<Tuple<string,string>> queue,int Time)
+        public Vertex[] get_vertices()
         {
-            visited[start] = true;
-            List<Tuple<string, double>> list = new List<Tuple<string, double>>();
+            return this.adjlist;
+        }
 
-            //Console.WriteLine("Visiting " + adjlist[start].get_name());
-            queue.Enqueue(start);
-
+        public bool[] get_infspread()
+        {
+            return this.infspread;
+        }
+        public void bfs()
+        {
+            Queue<Tuple<string, string>> queue = new Queue<Tuple<string, string>>();
+            for (int i = 0; i < adjlist[0].get_adjlist().Count; i++)
+            {
+                string nameone = adjlist[0].get_name();
+                string nametwo = adjlist[0].get_adjlist()[i].Item1;
+                queue.Enqueue(Tuple.Create(nameone, nametwo));
+            }
             while (queue.Count != 0)
             {
-                list = adjlist[start].get_adjlist();
-                int v = queue.Dequeue();
-
-                if (!visited[v] && adjlist[v].transferRate(adjlist[v]))
+                Tuple<string, string> tuple = queue.Dequeue();
+                Vertex A = this.adjlist.FirstOrDefault(o => o.get_name() == tuple.Item1);
+                Vertex B = this.adjlist.FirstOrDefault(o => o.get_name() == tuple.Item2);
+                int idx = Array.IndexOf(this.adjlist, B);
+                if (A.transferRate(B, this.T) && !this.infspread[idx])
                 {
-                    //Console.WriteLine("Visiting " + adjlist[v].get_name());
-
-                    visited[v] = true;
-                    queue.Enqueue(v);
+                    B.timeTransfer(A);
+                    for (int i = 0; i < B.get_adjlist().Count; i++)
+                    {
+                        string nameone = B.get_name();
+                        string nametwo = B.get_adjlist()[i].Item1;
+                        queue.Enqueue(Tuple.Create(nameone, nametwo));
+                    }
                 }
             }
         }
-
     }
 }

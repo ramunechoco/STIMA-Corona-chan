@@ -217,6 +217,7 @@
             this.Controls.Add(this.LargeLayoutTable);
             this.Name = "CoronaGUIForm";
             this.Text = "Corona-chan Simulation Project 発生プロジェクト";
+            this.Load += new System.EventHandler(this.CoronaGUIForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DayCounter)).EndInit();
             this.LargeLayoutTable.ResumeLayout(false);
             this.smallLayoutTable.ResumeLayout(false);

@@ -36,14 +36,16 @@ namespace Corona_chan_GUI
 
         void CreateGraph(Vertex[] vertices, int T)
         {
+            graphvertex gver = new graphvertex(vertices, T);
+            gver.bfs();
             Graph graph = new Graph("graph");
             for (int i = 0; i < vertices.Length; i++)
             {
                 List<Tuple<string,double>> list = new List<Tuple<string, double>>();
-                list = vertices[i].get_adjlist();
+                list = gver.get_vertices()[i].get_adjlist();
                 for (int k = 0; k < list.Count; k++)
                 {
-                    graph.AddEdge(vertices[i].get_name(), list[k].Item1);
+                    graph.AddEdge(gver.get_vertices()[i].get_name(), list[k].Item1);
                 }
             }
             //ChangeNodeSizes(graph);
@@ -140,6 +142,11 @@ namespace Corona_chan_GUI
         }
 
         private void tableLayoutPanel1_Paint_1(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void CoronaGUIForm_Load(object sender, EventArgs e)
         {
 
         }
