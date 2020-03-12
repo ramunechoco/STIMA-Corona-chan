@@ -60,7 +60,7 @@ namespace Coronachan
                 {
                     if (argone[l][0] == vertices[k].get_name())
                     {
-                        tupleList.Add(new Tuple<string, double>(argone[l][1], double.Parse(argone[l][2])));
+                        tupleList.Add(new Tuple<string, double>(argone[l][1], Convert.ToDouble(argone[l][2].Replace('.',','))));
                     }
                 }
                 vertices[k].set_adjlist(tupleList);

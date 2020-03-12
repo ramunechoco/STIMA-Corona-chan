@@ -17,9 +17,8 @@ using Microsoft.Msagl.Layout.MDS;
 using Color = Microsoft.Msagl.Drawing.Color;
 using Label = Microsoft.Msagl.Drawing.Label;
 using MouseButtons = System.Windows.Forms.MouseButtons;
-using Coronachan;
 
-namespace Corona_chan_GUI
+namespace Coronachan
 {
     public partial class CoronaGUIForm : Form
     {

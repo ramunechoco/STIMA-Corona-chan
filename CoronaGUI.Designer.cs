@@ -1,4 +1,4 @@
-﻿namespace Corona_chan_GUI
+﻿namespace Coronachan
 {
     partial class CoronaGUIForm
     {

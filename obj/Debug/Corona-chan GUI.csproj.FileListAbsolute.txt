@@ -6,7 +6,6 @@ C:\Users\Faris\STIMA-Corona-chan\bin\Debug\Corona-chan GUI.exe
 C:\Users\Faris\STIMA-Corona-chan\bin\Debug\Corona-chan GUI.pdb
 C:\Users\Faris\STIMA-Corona-chan\obj\Debug\Corona-chan GUI.exe
 C:\Users\Faris\STIMA-Corona-chan\obj\Debug\Corona-chan GUI.pdb
-C:\Users\Faris\STIMA-Corona-chan\obj\Debug\Corona_chan_GUI.CoronaGUIForm.resources
 C:\Users\Faris\STIMA-Corona-chan\bin\Debug\Microsoft.Msagl.dll
 C:\Users\Faris\STIMA-Corona-chan\bin\Debug\Microsoft.Msagl.Drawing.dll
 C:\Users\Faris\STIMA-Corona-chan\bin\Debug\Microsoft.Msagl.GraphViewerGdi.dll
@@ -14,3 +13,4 @@ C:\Users\Faris\STIMA-Corona-chan\bin\Debug\Microsoft.Msagl.xml
 C:\Users\Faris\STIMA-Corona-chan\bin\Debug\Microsoft.Msagl.Drawing.xml
 C:\Users\Faris\STIMA-Corona-chan\bin\Debug\Microsoft.Msagl.GraphViewerGdi.xml
 C:\Users\Faris\STIMA-Corona-chan\obj\Debug\Corona-chan GUI.csproj.CopyComplete
+C:\Users\Faris\STIMA-Corona-chan\obj\Debug\Coronachan.CoronaGUIForm.resources
